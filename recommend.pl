@@ -1,4 +1,5 @@
-% Start the program, F is the name of the recommended film
+% Try: start.
+% Note: each answer needs to end in '.'
 start :-
     ask1, nl,
     read(Ans1), nl,
@@ -39,7 +40,7 @@ q1(2, ID) :-
 q2(0, _). 
 % Emotional films
 q2(1, ID) :- 
-    % will return films that are both romance and drama twice, solved by distinct()
+    % will return that are both romance and drama twice, solved by distinct()
     db(ID, genre, 'romance'); db(ID, genre, 'drama').  
 % Historical films
 q2(2, ID) :- 
@@ -55,7 +56,7 @@ q2(5, ID) :-
     db(ID, genre, 'comedy'). 
 
 
-
+% Try: recommend(2, 1, F). -- returns all matches to modern emotional films
 % TODO: to add more questions, simply add another parameter and define all possible qn()'s for that question
 recommend(Ans1, Ans2, Filmname) :-
     db(ID, name, Filmname), 
@@ -65,6 +66,7 @@ recommend(Ans1, Ans2, Filmname) :-
 
 % Example knowledge base of films: 
 % http://www.omdbapi.com/
+% TODO: add more fields for each film, such as director, rating, actor... 
 db('tt0083658', name, 'Blade Runner'). 
 db('tt0083658', year, 1982). 
 db('tt0083658', genre, 'thriller'). 
