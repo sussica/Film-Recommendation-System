@@ -34,10 +34,10 @@ ask2 :-
     write("0. No preference"). 
 
 ask3 :-
-    write("Do you have long time for the movie? "), nl,
+    write("Do you have time for longer movies? "), nl,
     write("1. Yes"),nl, 
-    write("2. No"),nl. 
-
+    write("2. No"),nl, 
+    write("0. No preference"),nl.
 
 ask4 :-
     write("Which country's movie do you prefer to watch? "), nl,
@@ -50,7 +50,7 @@ ask4 :-
     write("0. No preference"),nl.
 
 ask5 :-
-    write("Do you want to watch movies that only high score? "), nl,
+    write("Do you prefer high-scoring movies? "), nl,
     write("1. Yes"),nl, 
     write("2. Doesn't matter"),nl.
 
@@ -85,6 +85,7 @@ q2(5, ID) :-
     db(ID, genre, 'comedy'). 
 
 
+q3(0, ID). 
 % q3(1, ID) is true if the runtime is larger than 100.
 q3(1, ID) :-
     db(ID, runtime, R),
@@ -94,29 +95,29 @@ q3(2, ID) :-
     db(ID, runtime, R),
     R < 100.
 
-q4(0. _).
+q4(0, _).
 q4(1, ID) :-
-    db(ID, coutry, 'US').
+    db(ID, country, 'usa').
 q4(2, ID) :-
-    db(ID, coutry, 'UK').
+    db(ID, country, 'uk').
 q4(3, ID) :-
-    db(ID, coutry, 'Canada').
+    db(ID, country, 'canada').
 q4(4, ID) :-
-    db(ID, coutry, 'Japan').
+    db(ID, country, 'japan').
 q4(5, ID) :-
-    db(ID, coutry, 'Korea').
+    db(ID, country, 'korea').
 q4(6, ID) :-
-    db(ID, coutry, 'China').
+    db(ID, country, 'china').
 
-% q5(1, ID) is true if the score is larger than 7.5.
+% q5(1, ID) is true if the rating is larger than 7.5.
 q5(1, ID) :-
-    db(ID, score, S),
+    db(ID, rating, S),
     S >= 7.5.
 q5(2, _).
 
 % Try: recommend(2, 1, F). -- returns all matches to modern emotional films
 % TODO: to add more questions, simply add another parameter and define all possible qn()'s for that question
-recommend(Ans1, Ans2, Ans3, Filmname) :-
+recommend(Ans1, Ans2, Ans3, Ans4, Ans5, Filmname) :-
     db(ID, name, Filmname), 
     q1(Ans1, ID),
     q2(Ans2, ID),
@@ -134,6 +135,7 @@ db('tt0083658', genre, 'thriller').
 db('tt0083658', genre, 'sci-fi'). 
 db('tt0083658', genre, 'action'). 
 db('tt0083658', runtime, 117). 
+db('tt0083658', rating, 8.1). 
 
 db('tt0076759', name, 'Star Wars'). 
 db('tt0076759', year, 1977). 
@@ -142,18 +144,21 @@ db('tt0076759', genre, 'adventure').
 db('tt0076759', genre, 'fantasy'). 
 db('tt0076759', genre, 'sci-fi'). 
 db('tt0076759', runtime, 121). 
+db('tt0076759', rating, 7.8). 
 
 db('tt2194499', name, 'About Time'). 
 db('tt2194499', year, 2013). 
 db('tt2194499', genre, 'romance'). 
 db('tt2194499', genre, 'comedy'). 
 db('tt2194499', runtime, 123). 
+db('tt2194499', rating, 7.4). 
 
 db('tt1798709', name, 'Her'). 
 db('tt1798709', year, 2013). 
 db('tt1798709', genre, 'drama'). 
 db('tt1798709', genre, 'romance'). 
 db('tt1798709', runtime, 126). 
+db('tt2194499', rating, 7.8). 
 
 db('tt2084970', name, 'The Imitation Game'). 
 db('tt2084970', year, 2014). 
@@ -162,3 +167,4 @@ db('tt2084970', genre, 'drama').
 db('tt2084970', genre, 'thriller'). 
 db('tt2084970', genre, 'war'). 
 db('tt2084970', runtime, 114). 
+db('tt2194499', rating, 7.6). 
