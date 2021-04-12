@@ -74,6 +74,7 @@ q1(1, ID) :-
 q1(2, ID) :-  
     db(ID, year, Y), 
     Y > 2000. 
+q1(_, _).
 
 
 q2(0, _). 
@@ -93,6 +94,7 @@ q2(4, ID) :-
 % Funny films
 q2(5, ID) :- 
     db(ID, genre, 'comedy'). 
+q2(_, _).
 
 
 q3(0, ID). 
@@ -104,6 +106,7 @@ q3(1, ID) :-
 q3(2, ID) :-
     db(ID, runtime, R),
     R < 120.
+q3(_, _).
 
 q4(0, _).
 q4(1, ID) :-
@@ -118,6 +121,7 @@ q4(5, ID) :-
     db(ID, country, 'korea').
 q4(6, ID) :-
     db(ID, country, 'china').
+q4(_, _).
 
 % q5(1, ID) is true if the rating is larger than 7.5.
 q5(1, ID) :-
