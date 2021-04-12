@@ -1,3 +1,6 @@
+:- use_module(library(persistency)).
+:- persistent(db(id:atom, property:atom, value:atom)).
+
 % generate film knowledge base from provided csv file
 
 initdb :-

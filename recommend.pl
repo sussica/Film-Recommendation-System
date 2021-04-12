@@ -1,11 +1,12 @@
 % Try: start.
 % Note: each answer needs to end in '.'
 :- [testkb]. 
-% :- [gendb]. 
+:- [gendb]. 
 
 start :-
-    write('Loading movie db... '), nl,nl,nl, 
-    % initdb,
+    writeln('Loading movie db... '), 
+    initdb,
+    nl,nl, 
     write('   Hello!  '),
     write('Welcome to the film recommendation system. Please answer questions below!'),nl,
     ask1, nl,
@@ -19,7 +20,7 @@ start :-
     ask5, nl,
     read(Ans5), nl,
     % print the first 100 matched films
-    write('we recommend following film:'), nl,
+    write('we recommend following films:'), nl,
     forall(limit(100, distinct(recommend(Ans1, Ans2, Ans3, Ans4, Ans5, F))), writeln(F)).
 
  
@@ -57,7 +58,7 @@ ask4 :-
 ask5 :-
     write("Do you prefer high-scoring movies? "), nl,
     write("1. Yes"),nl, 
-    write("2. Doesn't matter"),nl.
+    write("0. Doesn't matter"),nl.
 
 % q1(0, _) is always true since no preference
 q1(0, _). 
@@ -68,7 +69,7 @@ q1(1, ID) :-
 % q1(2, N) is true if film N is released after 2000 
 q1(2, ID) :-  
     db(ID, year, Y), 
-    Y >= 2000. 
+    Y > 2000. 
 
 
 q2(0, _). 
@@ -117,8 +118,8 @@ q4(6, ID) :-
 % q5(1, ID) is true if the rating is larger than 7.5.
 q5(1, ID) :-
     db(ID, rating, S),
-    S >= 7.5.
-q5(2, _).
+    S > 7.5.
+q5(_, _).
 
 % Try: recommend(2, 1, F). -- returns all matches to modern emotional films
 % TODO: to add more questions, simply add another parameter and define all possible qn()'s for that question
