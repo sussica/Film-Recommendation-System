@@ -40,7 +40,7 @@ addTitle(_,_,_,_,_,_,_,Votes) :-
 addTitle(ID, Name, Year, Genre, Runtime, Country, Rating, Votes) :-
     writeln( db(ID, name, Name) ), 
     writeln( db(ID, runtime, Runtime) ), 
-    % writeln( db(ID, country, Country) ), 
+    writeln( db(ID, year, Year) ), 
     writeln( db(ID, rating, Rating) ), 
     % convert country into list
     atomic_list_concat(CtryLst, ', ', Country), 

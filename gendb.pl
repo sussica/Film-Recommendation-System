@@ -42,8 +42,8 @@ addTitle(_,_,_,_,_,_,_,Votes) :-
 
 addTitle(ID, Name, Year, Genre, Runtime, Country, Rating, Votes) :-
     assert( db(ID, name, Name) ), 
-    assert( db(ID, runtime, Runtime) ), 
-    % assert( db(ID, country, Country) ), 
+    assert( db(ID, runtime, Runtime) ),
+    assert( db(ID, year, Year) ),  
     assert( db(ID, rating, Rating) ), 
     % convert country into list
     atomic_list_concat(CtryLst, ', ', Country), 

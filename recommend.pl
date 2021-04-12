@@ -69,12 +69,14 @@ q1(0, _).
 % q1(1, N) is true if film N is  released before 2000
 q1(1, ID) :-
     db(ID, year, Y), 
-    Y < 2000. 
+    Y < 2010. 
 % q1(2, N) is true if film N is released after 2000 
 q1(2, ID) :-  
     db(ID, year, Y), 
-    Y > 2000. 
-q1(_, _).
+    Y > 2010. 
+q1(2, ID) :-  
+    db(ID, year, Y), 
+    Y = 2010. 
 
 
 q2(0, _). 
@@ -94,7 +96,6 @@ q2(4, ID) :-
 % Funny films
 q2(5, ID) :- 
     db(ID, genre, 'comedy'). 
-q2(_, _).
 
 
 q3(0, ID). 
@@ -106,7 +107,6 @@ q3(1, ID) :-
 q3(2, ID) :-
     db(ID, runtime, R),
     R < 120.
-q3(_, _).
 
 q4(0, _).
 q4(1, ID) :-
@@ -121,13 +121,18 @@ q4(5, ID) :-
     db(ID, country, 'korea').
 q4(6, ID) :-
     db(ID, country, 'china').
-q4(_, _).
 
 % q5(1, ID) is true if the rating is larger than 7.5.
 q5(1, ID) :-
     db(ID, rating, S),
     S > 7.5.
-q5(_, _).
+q5(0, ID):-
+    db(ID, rating, S),
+    S = 7.5.
+q5(0, ID):-
+    db(ID, rating, S),
+    S < 7.5.
+
 
 % Try: recommend(2, 1, F). -- returns all matches to modern emotional films
 % TODO: to add more questions, simply add another parameter and define all possible qn()'s for that question
