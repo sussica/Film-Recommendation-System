@@ -12,4 +12,3 @@ After `starti` has been called:
 ```
 ?- start. 
 ```
-To start the program. 
