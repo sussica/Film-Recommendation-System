@@ -64,8 +64,8 @@ ask5 :-
     write("1. Yes"),nl, 
     write("0. Doesn't matter"),nl.
 
-% q1(0, _) is always true since no preference
-q1(0, _). 
+% q1(_, _) is always true since no preference
+q1(_, _).
 % q1(1, N) is true if film N is  released before 2000
 q1(1, ID) :-
     db(ID, year, Y), 
@@ -79,7 +79,7 @@ q1(2, ID) :-
     Y = 2010. 
 
 
-q2(0, _). 
+q2(_, _).
 % Emotional films
 q2(1, ID) :- 
     % will return that are both romance and drama twice, solved by distinct()
@@ -98,7 +98,7 @@ q2(5, ID) :-
     db(ID, genre, 'comedy'). 
 
 
-q3(0, ID). 
+q3(_, _).
 % q3(1, ID) is true if the runtime is larger than 115.
 q3(1, ID) :-
     db(ID, runtime, R),
@@ -108,7 +108,7 @@ q3(2, ID) :-
     db(ID, runtime, R),
     R < 120.
 
-q4(0, _).
+q4(_, _).
 q4(1, ID) :-
     db(ID, country, 'usa').
 q4(2, ID) :-
