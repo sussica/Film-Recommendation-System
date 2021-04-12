@@ -1,14 +1,18 @@
-% Try: start.
+% First time starting: starti
+% Try: start
 % Note: each answer needs to end in '.'
 :- [testkb]. 
 :- [gendb]. 
 
-start :-
-    writeln('Loading movie db... '), 
+starti :- 
+    writeln('Loading movie database... '), 
     initdb,
     nl,nl, 
+    start. 
+
+start :-
     write('   Hello!  '),
-    write('Welcome to the film recommendation system. Please answer questions below!'),nl,
+    write('Welcome to the movie recommendation system. Please answer questions below!'),nl,
     ask1, nl,
     read(Ans1), nl,
     ask2, nl, 
@@ -19,19 +23,19 @@ start :-
     read(Ans4), nl,
     ask5, nl,
     read(Ans5), nl,
-    % print the first 100 matched films
-    write('we recommend following films:'), nl,
-    forall(limit(100, distinct(recommend(Ans1, Ans2, Ans3, Ans4, Ans5, F))), writeln(F)).
+    % print the first 20 matched films
+    write('we recommend following movies:'), nl,
+    forall(limit(20, distinct(recommend(Ans1, Ans2, Ans3, Ans4, Ans5, F))), writeln(F)).
 
  
 ask1 :- 
-    write("Do you prefer old films? "),nl,
+    write("Do you prefer old movies? "),nl,
     write("1. Yes"),nl,
     write("2. No"),nl,
     write("0. No preference"). 
 
 ask2 :-
-    write("What types of film are you in the mood for? "), nl,
+    write("What types of movies are you in the mood for? "), nl,
     write("1. Emotional"),nl, 
     write("2. Historical"),nl, 
     write("3. Cerebral"),nl, 
@@ -92,14 +96,14 @@ q2(5, ID) :-
 
 
 q3(0, ID). 
-% q3(1, ID) is true if the runtime is larger than 100.
+% q3(1, ID) is true if the runtime is larger than 115.
 q3(1, ID) :-
     db(ID, runtime, R),
-    R >= 100.
-% q3(2, ID) is true if the runtime is smaller than 100.
+    R > 115.
+% q3(2, ID) is true if the runtime is smaller than 120.
 q3(2, ID) :-
     db(ID, runtime, R),
-    R < 100.
+    R < 120.
 
 q4(0, _).
 q4(1, ID) :-
