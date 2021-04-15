@@ -5,13 +5,13 @@
 :- [gendb]. 
 % :- [testkb]. 
 
-starti :- 
+startinit :- 
     writeln('Loading movie database, please wait... '), 
     initdb,
-    nl,nl, 
     start. 
 
 start :-
+    nl,nl,
     write('   Hello!  '),
     write('Welcome to the movie recommendation system. Please answer questions below!'),nl,
     ask1, nl,
@@ -84,8 +84,9 @@ q1(2, ID) :-
 q1(2, ID) :-  
     db(ID, year, Y), 
     Y = 2000. 
-
-
+% handle invalid input
+q1(Op, _) :- not( member(Op, [0, 1, 2]) ). 
+ 
 q2(0, _).
 % Emotional films
 q2(1, ID) :- 
@@ -103,7 +104,8 @@ q2(4, ID) :-
 % Funny films
 q2(5, ID) :- 
     db(ID, genre, 'comedy'). 
-
+% handle invalid input
+q2(Op, _) :- not( member(Op, [0, 1, 2, 3, 4, 5]) ). 
 
 q3(0, _).
 % q3(1, ID) is true if the runtime is larger than 119.
@@ -114,6 +116,8 @@ q3(1, ID) :-
 q3(2, ID) :-
     db(ID, runtime, R),
     R < 120.
+% handle invalid input
+q3(Op, _) :- not( member(Op, [0, 1, 2]) ). 
 
 q4(0, _).
 q4(1, ID) :-
@@ -128,12 +132,17 @@ q4(5, ID) :-
     db(ID, country, 'south korea').
 q4(6, ID) :-
     db(ID, country, 'china').
+% handle invalid input
+q4(Op, _) :- not( member(Op, [0, 1, 2, 3, 4, 5, 6]) ). 
+
 
 % q5(1, ID) is true if the rating is larger than 7.
 q5(1, ID) :-
     db(ID, rating, S),
     S > 7.
 q5(0, _).
+% handle invalid input
+q5(Op, _) :- not( member(Op, [0, 1]) ). 
 
 % Bebug: recommend(2, 1, 0, 0, 0, F). -- returns all matches to modern emotional films
 %   to add more questions, simply add another parameter and define all possible qn()'s for that question

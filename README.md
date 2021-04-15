@@ -10,10 +10,10 @@ set_prolog_flag(encoding, utf8).
 When starting for the first time: 
 ```
 ?- [recommend]. 
-?- starti.   
+?- startinit.   
 ```
 
-After `starti` has been called: 
+After `startinit` has been called: 
 ```
 ?- start. 
 ```
