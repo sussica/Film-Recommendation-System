@@ -9,11 +9,11 @@ set_prolog_flag(encoding, utf8).
 
 When starting for the first time: 
 ```
-?- [recommend]. 
-?- startinit.   
+?- [recommend].
+?- loaddb.
 ```
 
-After `startinit` has been called: 
+Once `loaddb` has been called: 
 ```
-?- start. 
+?- start.
 ```
