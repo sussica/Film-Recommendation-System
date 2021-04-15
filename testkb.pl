@@ -1,6 +1,6 @@
-% Knowledge base of films for testing
-% http://www.omdbapi.com/
-% TODO: add more fields for each film, such as director, rating, actor... 
+% (Not used)
+% Knowledge base of films for testing 
+% gendb reads the csv file provided to assert statements in this form
 db('tt0083658', name, 'Blade Runner'). 
 db('tt0083658', year, 1982). 
 db('tt0083658', genre, 'thriller'). 
