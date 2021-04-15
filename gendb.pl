@@ -2,9 +2,11 @@
 :- persistent(db(id:atom, property:atom, value:atom)).
 
 % generate film knowledge base from provided csv file
+% CSV file of IMDB information obtained here: 
+% https://www.kaggle.com/stefanoleone992/imdb-extensive-dataset
 
 initdb :-
-    open('movies-test.csv', read, Stream), 
+    open('imdb movies.csv', read, Stream), 
     parseMovies(Stream), 
     close(Stream). 
 
@@ -25,8 +27,7 @@ parseMovies(Stream) :-
 addInfo(Row) :-
     % convert terms into lists
     Row =.. [_, ID, _, Name, Year, _, Genre, Runtime, Country, _, 
-            _,_,_,_,_, Rating,Votes | R], 
-    % writeln(Runtime + Country + Rating + Votes),
+            _,_,_,_,_, Rating,Votes | _], 
     addTitle(ID, Name, Year, Genre, Runtime, Country, Rating, Votes).  
 
 % return true (skip film) if one of the arguments is missing from the csv file
@@ -36,9 +37,9 @@ addTitle(_,_,_,_,'',_,_,_).
 addTitle(_,_,_,_,_,'',_,_). 
 addTitle(_,_,_,_,_,_,'',_). 
 addTitle(_,_,_,_,_,_,_,''). 
-% skip films with < 100000 votes (limit DB size)
+% skip films with < 20000 votes (limit DB size)
 addTitle(_,_,_,_,_,_,_,Votes) :- 
-    Votes < 50000.  
+    Votes < 20000.  
 
 addTitle(ID, Name, Year, Genre, Runtime, Country, Rating, Votes) :-
     assert( db(ID, name, Name) ), 
@@ -50,8 +51,9 @@ addTitle(ID, Name, Year, Genre, Runtime, Country, Rating, Votes) :-
     addList(ID, country, CtryLst), 
     % convert genre into list
     atomic_list_concat(GenreList, ', ', Genre), 
-    addList(ID, genre, GenreList), 
-    writeln("Added": Name). 
+    addList(ID, genre, GenreList).
+    % writeln("Added": Name), 
+    % writeln(Runtime + Country + Rating + Votes).    
 
 
 % Add a list of the same property to the database

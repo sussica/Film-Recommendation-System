@@ -1,11 +1,12 @@
 % First time starting: starti
 % Try: start
 % Note: each answer needs to end in '.'
-:- [testkb]. 
+
 :- [gendb]. 
+% :- [testkb]. 
 
 starti :- 
-    writeln('Loading movie database... '), 
+    writeln('Loading movie database, please wait... '), 
     initdb,
     nl,nl, 
     start. 
@@ -23,15 +24,15 @@ start :-
     read(Ans4), nl,
     ask5, nl,
     read(Ans5), nl,
-    % print the first 20 matched films
+    % print the first 50 matched films
     write('we recommend following movies:'), nl,
-    forall(limit(20, distinct(recommend(Ans1, Ans2, Ans3, Ans4, Ans5, F))), writeln(F)).
+    forall(limit(50, distinct(recommend(Ans1, Ans2, Ans3, Ans4, Ans5, F))), writeln(F)).
 
  
 ask1 :- 
-    write("Do you prefer old movies? "),nl,
+    write("Do you prefer older movies (pre-2000)? "),nl,
     write("1. Yes"),nl,
-    write("2. No"),nl,
+    write("2. No, give me modern movies"),nl,
     write("0. No preference"). 
 
 ask2 :-
@@ -47,7 +48,7 @@ ask3 :-
     write("Do you have time for longer movies? "), nl,
     write("1. Yes"),nl, 
     write("2. No"),nl, 
-    write("0. No preference"),nl.
+    write("0. No preference").
 
 ask4 :-
     write("Which country's movie do you prefer to watch? "), nl,
@@ -57,32 +58,38 @@ ask4 :-
     write("4. Japan"),nl,
     write("5. Korea"),nl,
     write("6. China"),nl,
-    write("0. No preference"),nl.
+    write("0. No preference").
 
 ask5 :-
     write("Do you prefer high-scoring movies? "), nl,
     write("1. Yes"),nl, 
-    write("0. Doesn't matter"),nl.
+    write("0. Doesn't matter").
+
+% ask6 :-
+%     write("Do you prefer niche/lesser-known movies? "), nl,
+%     write("1. Yes"),nl, 
+%     write("2. No, give me popular movies"),nl, 
+%     write("0. Doesn't matter").
 
 % q1(0, _) is always true since no preference
 q1(0, _).
 % q1(1, N) is true if film N is  released before 2000
 q1(1, ID) :-
     db(ID, year, Y), 
-    Y < 2010. 
+    Y < 2000. 
 % q1(2, N) is true if film N is released after 2000 
 q1(2, ID) :-  
     db(ID, year, Y), 
-    Y > 2010. 
+    Y > 2000. 
 q1(2, ID) :-  
     db(ID, year, Y), 
-    Y = 2010. 
+    Y = 2000. 
 
 
 q2(0, _).
 % Emotional films
 q2(1, ID) :- 
-    % will return that are both romance and drama twice, solved by distinct()
+    % will return that are both romance and drama twice, suppressed by distinct()
     db(ID, genre, 'romance'); db(ID, genre, 'drama').  
 % Historical films
 q2(2, ID) :- 
@@ -99,10 +106,10 @@ q2(5, ID) :-
 
 
 q3(0, _).
-% q3(1, ID) is true if the runtime is larger than 115.
+% q3(1, ID) is true if the runtime is larger than 119.
 q3(1, ID) :-
     db(ID, runtime, R),
-    R > 115.
+    R > 119.
 % q3(2, ID) is true if the runtime is smaller than 120.
 q3(2, ID) :-
     db(ID, runtime, R),
@@ -118,23 +125,22 @@ q4(3, ID) :-
 q4(4, ID) :-
     db(ID, country, 'japan').
 q4(5, ID) :-
-    db(ID, country, 'korea').
+    db(ID, country, 'south korea').
 q4(6, ID) :-
     db(ID, country, 'china').
 
-% q5(1, ID) is true if the rating is larger than 7.5.
+% q5(1, ID) is true if the rating is larger than 7.
 q5(1, ID) :-
     db(ID, rating, S),
     S > 7.
 q5(0, _).
 
-
-% Try: recommend(2, 1, F). -- returns all matches to modern emotional films
-% TODO: to add more questions, simply add another parameter and define all possible qn()'s for that question
+% Bebug: recommend(2, 1, 0, 0, 0, F). -- returns all matches to modern emotional films
+%   to add more questions, simply add another parameter and define all possible qn()'s for that question
 recommend(Ans1, Ans2, Ans3, Ans4, Ans5, Filmname) :-
     db(ID, name, Filmname), 
     q1(Ans1, ID),
     q2(Ans2, ID),
     q3(Ans3, ID),
     q4(Ans4, ID),
-    q5(Ans5, ID).
+    q5(Ans5, ID). 
