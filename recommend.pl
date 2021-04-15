@@ -5,9 +5,10 @@
 :- [gendb]. 
 % :- [testkb]. 
 
-loaddb :- 
+startinit :- 
     writeln('Loading movie database, please wait... '), 
-    initdb. 
+    initdb,
+    start. 
 
 start :-
     nl,nl,
